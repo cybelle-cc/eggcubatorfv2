@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eggcubator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #FFF9E6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      max-width: 390px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #FBC02D;
+      color: #4E342E;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 20px;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    main {
+      padding: 80px 20px 90px;
+      max-width: 390px;
+      margin: auto;
+      color: #5D4037;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 390px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #FFFDE7;
+      border-top: 1px solid #FDD835;
+      padding: 10px;
+    }
+
+
+</style>
+</head>
+<body>
+  <header>Eggcubator</header>
+  <main>
+    <div id="dashboard" class="page active">
+        <div class="info-cards">
+          <div class="card">
+            <h3>Day</h3>
+            <p id="day">Loading...</p>
+          </div>
+          <div class="card">
+            <h3>Motion Detected</h3>
+            <p id="pir">Loading...</p>
+          </div>
+          <div class="card">
+            <h3>Humidity</h3>
+            <p id="humidity">Loading...</p>
+          </div>
+          <div class="card">
+            <h3>Temperature</h3>
+            <p id="temperature">Loading...</p>
+          </div>
+        </div>
+      
+        <div class="chart-container">
+          <canvas id="tempChart"></canvas>
+        </div>
+        <div class="chart-container">
+          <canvas id="humidityChart"></canvas>
+        </div>
+      
+        <div class="turns-container">
+          <div class="turn-card">
+            <h4>Last Turn</h4>
+            <p id="lastTurn">Loading...</p>
+          </div>
+          <div class="turn-card">
+            <h4>Next Turn</h4>
+            <p id="nextTurn">Loading...</p>
+          </div>
+        </div>
+      </div>
+    
+    <div id="guidelines" class="page">
+      <h2>Guidelines</h2>
+      
+      <div class="guide-card">
+        <h3>Overview</h3>
+        <p>
+          The Eggcubator is an automated chicken egg incubator designed
+          to optimize hatchability through precise environmental control,
+          automated egg handling, and real-time monitoring. The system 
+          integrates temperature and humidity regulation, automated egg
+          turning, egg transfer from setter to hatcher, early hatch detection
+          with notifications, and both local and remote monitoring through 
+          an OLED display and mobile application.
+        </p>
+      </div>
+  
+      <div class="guide-card">
+        <h3>System Features</h3>
+        <ul>
+          <li><b>Automated Temperature & Humidity Control</b></li>
+          <li><b>Automated Egg Turning</b></li>
+          <li><b>Automatic Egg Transfer (Setter to Hatcher)</b></li>
+          <li><b>Early Hatch Detection & Notifications</b></li>
+          <li><b>Real-time Monitoring</b></li>
+          <li><b>Automatic Water Refill System</b></li>
+          <li><b>Built-in Egg Candler</b></li>
+        </ul>
+      </div>
+  
+      <div class="guide-card">
+        <h3>Setup & Operation</h3>
+        <ol>
+          <li>Place the Eggcubator on a stable, level surface.</li>
+          <li>Gently load eggs into the setter trays.</li>
+          <li>Select operating mode:
+            <ul>
+              <li><b>Automatic Mode</b> – System manages all parameters.</li>
+              <li><b>Manual Mode</b> – User controls settings manually.</li>
+            </ul>
+          </li>
+          <li>Allow the system to stabilize before incubation.</li>
+        </ol>
+      </div>
+  
+      <div class="guide-card">
+        <h3>Incubation Phases</h3>
+  
+        <div class="phase">
+          <div class="phase-title">Day 1–18 : Setter Phase</div>
+          <ul>
+            <li>Monitor temperature and humidity regularly.</li>
+            <li>Ensure water reservoir is filled.</li>
+            <li>Eggs are turned automatically or manually.</li>
+            <li>Candle eggs on Day 7 and Day 14.</li>
+          </ul>
+        </div>
+  
+        <div class="phase">
+          <div class="phase-title">Day 18–21 : Hatching Phase</div>
+          <ul>
+            <li>Eggs are transferred to the hatcher.</li>
+            <li>Egg turning stops automatically.</li>
+            <li>Humidity is increased for hatching.</li>
+            <li>Avoid opening the incubator.</li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="guide-card">
+        <h3>Maintenance</h3>
+        <ul>
+          <li>Clean and disinfect trays and water reservoirs.</li>
+          <li>Inspect motors, fans, and airflow paths.</li>
+          <li>Refill water as needed to maintain humidity.</li>
+        </ul>
+      </div>
+  
+      <div class="guide-card">
+        <h3>Avoid</h3>
+        <ul>
+          <li>Ignore alarms or warnings.</li>
+          <li>Move or unplug the incubator during operation.</li>
+          <li>Overload with eggs.</li>
+          <li>Set unsafe temperature or humidity levels.</li>
+          <li>Open the incubator frequently.</li>
+        </ul>
+      </div>
+  
+      <div class="guide-card">
+        <h3>About the Project</h3>
+        <p>
+          The Eggcubator system was developed as a capstone 
+          project in partial fulfillment of the requirements 
+          for the Bachelor of Science in Computer Engineering 
+          program. The project aims to address common challenges 
+          in traditional egg incubation methods, such as 
+          inconsistent temperature and humidity control, manual 
+          egg turning, and delayed hatch monitoring. The system 
+          combines embedded hardware, sensor technology, and 
+          mobile-based monitoring to provide a modern and efficient 
+          incubation solution suitable for educational, research, 
+          and small-scale poultry applications.
+        </p>
+      </div>
+
+      <div class="guide-card">
+        <h3>About the Developers</h3>
+        <p>
+          This system was developed by Catherine Jane Barro and Argie Pasuquin, 
+          4th-year Computer Engineering students at the University of Cebu – Main 
+          Campus. The project was supervised by Engineers Gerald Anthony Cabansag 
+          and Lucia G. Minyamin, both faculty members of the Computer Engineering 
+          department. Should you have any questions or concerns, please contact us 
+          at: 
+        </p>
+        <div class="emails">
+          <a href="mailto:catherinej.barro@gmail.com" class="email-btn">catherinej.barro@gmail.com</a>
+          <a href="mailto:pasuquinargie29@gmail.com" class="email-btn">pasuquinargie29@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="settings" class="page">
+      <h2 style="text-align:center; margin-bottom:20px;">Settings</h2>
+      
+        <!-- ===== MODE & DEVICE CONTROL ===== -->
+        <div class="display-container control-panel">
+          <label>Mode</label>
+          <div class="button-group">
+            <div class="toggle-btn mode" id="autoBtn">Automatic</div>
+            <div class="toggle-btn mode" id="manualBtn">Manual</div>
+          </div>
+      
+          <label>Controls</label>
+      
+          <div class="device-label">Bulb</div>
+          <div class="device-group">
+            <div class="toggle-btn on" id="bulbOn">ON</div>
+            <div class="toggle-btn off" id="bulbOff">OFF</div>
+          </div>
+      
+          <div class="device-label">Fan</div>
+          <div class="device-group">
+            <div class="toggle-btn on" id="fanOn">ON</div>
+            <div class="toggle-btn off" id="fanOff">OFF</div>
+          </div>
+      
+          <div class="device-label">Humidifier</div>
+          <div class="device-group">
+            <div class="toggle-btn on" id="humidOn">ON</div>
+            <div class="toggle-btn off" id="humidOff">OFF</div>
+          </div>
+        </div>
+      
+      <!-- ===== ENVIRONMENTAL SETTINGS ===== -->
+      <div class="display-container control-panel">
+        <label>Environmental Settings</label>
+
+        <!-- Temperature Range -->
+        <div class="device-label">Set Temperature Range (°C)</div>
+
+        <div style="margin-top:5px;">Minimum:</div>
+        <input type="range" id="tempMinSlider" min="30" max="40" step="0.1" value="34.2" class="env-slider" onchange="updateEnvSettings()" />
+        
+        <div style="margin-top:5px;">Maximum:</div>
+        <input type="range" id="tempMaxSlider" min="30" max="40" step="0.1" value="37.4" class="env-slider" onchange="updateEnvSettings()" />
+
+        <div class="env-value">
+          Temperature Range: <span id="tempMinValue">34.2</span>°C - <span id="tempMaxValue">37.4</span>°C
+        </div>
+
+        <!-- Humidity Range -->
+        <div class="device-label" style="margin-top:15px;">Set Humidity Range (%)</div>
+
+        <div style="margin-top:5px;">Minimum:</div>
+        <input type="range" id="humidityMinSlider" min="40" max="100" step="1" value="71" class="env-slider" onchange="updateEnvSettings()" />
+
+        <div style="margin-top:5px;">Maximum:</div>
+        <input type="range" id="humidityMaxSlider" min="40" max="100" step="1" value="99" class="env-slider" onchange="updateEnvSettings()" />
+
+        <div class="env-value">
+          Humidity Range: <span id="humidityMinValue">71</span>% - <span id="humidityMaxValue">99</span>%
+        </div>
+      </div>
+
+      <!-- ===== EGG TURNING SETTINGS ===== -->
+        <div class="display-container control-panel">
+          <label>Egg Turning Settings</label>
+
+          <!-- Turning Interval Slider -->
+          <div class="device-label">Turning Interval (hours)</div>
+          <input
+            type="range"
+            id="turnIntervalSlider"
+            min="1"
+            max="12"
+            step="1"
+            value="4"
+            class="env-slider"
+            onchange="updateTurningSettings()"
+          />
+          <div class="env-value">
+            Turning every <span id="turnIntervalValue">4</span> hour(s)
+          </div>
+
+          <!-- Lockdown Day Slider -->
+          <div class="device-label" style="margin-top:15px;">Lockdown Day</div>
+          <input
+            type="range"
+            id="lockdownDaySlider"
+            min="1"
+            max="50"
+            step="1"
+            value="18"
+            class="env-slider"
+            onchange="updateTurningSettings()"
+          />
+          <div class="env-value">
+            Egg turning stops on Day <span id="lockdownDayValue">18</span>
+          </div>
+        </div>
+
+        <div class="display-container control-panel">
+          <label>Preferences</label>
+        
+          <!-- Data Logging Toggle -->
+          <div class="preference-item">
+            <span class="preference-label">Data Logging</span>
+            <label class="switch">
+              <input type="checkbox" id="dataLoggingToggle">
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <button class="clickable-btn" id="resetBatchBtn">Reset Batch</button>
+          <button class="clickable-btn" id="factoryResetBtn">Factory Reset</button>
+          <button class="clickable-btn" id="exitBtn">Exit</button>
+        </div>
+      
+      </div> <!-- last of settings-->
+      
+  </main>
+
+  <nav>
+    <div class="nav-buttons">
+      <button onclick="showPage('dashboard', this)" class="active">Dashboard</button>
+      <button onclick="showPage('guidelines', this)">Guidelines</button>
+      <button onclick="showPage('settings', this)">Settings</button>
+    </div>
+  </nav>
+  
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    // ---------- PAGE SWITCH ----------
+    function showPage(id, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-buttons button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+ 
+    const firebaseConfig = {
+      apiKey: "AIzaSyDXVrOD_W7ccrD3Iy8a1194U9pcXH3Hgso",
+      authDomain: "eggcubatorv1.firebaseapp.com",
+      databaseURL: "https://eggcubatorv1-default-rtdb.firebaseio.com",
+      projectId: "eggcubatorv1",
+      storageBucket: "eggcubatorv1.firebasestorage.app",
+      messagingSenderId: "800781714169",
+      appId: "1:800781714169:web:16082da6cff3fec72bd828"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+      
+    // HTML elements
+    const dayEl = document.getElementById("day");
+    const pirEl = document.getElementById("pir");
+    const tempEl = document.getElementById("temperature");
+    const humidityEl = document.getElementById("humidity");
+    const lastTurnEl = document.getElementById("lastTurn");
+    const nextTurnEl = document.getElementById("nextTurn");
+
+    // Graph data
+    const maxPoints = 60;
+    let minuteCounter = 0;
+    let latestTemp = 0;
+    let latestHumidity = 0;
+
+    // Data Logging Toggle
+    const dataLoggingToggle = document.getElementById('dataLoggingToggle');
+    let logInterval = null;
+    let logData = [];
+
+    dataLoggingToggle.addEventListener('change', () => {
+
+      if (dataLoggingToggle.checked) {
+        alert('Data logging is enabled.');
+
+        // Start logging every minute
+        logInterval = setInterval(() => {
+          const timestamp = new Date().toLocaleString();
+
+          // Read real-time data from Firebase
+          firebase.database().ref('status').once('value')
+            .then(snapshot => {
+              const data = snapshot.val();
+              if (data) {
+                logData.push({
+                  time: timestamp,
+                  day: data.day,
+                  temperature: data.temperature,
+                  humidity: data.humidity,
+                  pir: data.pir
+                });
+                console.log('Logged:', logData[logData.length - 1]);
+              }
+            })
+            .catch(err => {
+              console.error('Firebase read error:', err);
+            });
+
+        }, 10000); // every 10 seconds
+
+      } else {
+        alert('Data logging is disabled.');
+
+        // Stop logging
+        clearInterval(logInterval);
+        logInterval = null;
+
+        // Automatically save the file
+        saveLogToFile();
+      }
+
+    });
+
+    function saveLogToFile() {
+    if (logData.length === 0) return;
+
+    let text = 'Time and Date		    |          Day       |     Temperature     |      Humidity      |      PIR     \n';
+      logData.forEach(row => {
+        text += `${row.time}       |          ${row.day}         |         ${row.temperature}        |         ${row.humidity}         |      ${row.pir}\n`;
+    });
+
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+
+    // Dynamic filename based on date & time
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    a.download = `log_${year}-${month}-${day}_${hours}-${minutes}-${seconds}.txt`;
+
+    a.click(); // triggers download
+    URL.revokeObjectURL(url);
+
+    logData = []; // clear memory
+  }
+
+    // reset to day 1
+    document.getElementById('resetBatchBtn').addEventListener('click', () => {
+
+    const confirmReset = confirm('Are you sure you want to reset the current batch?');
+    if (!confirmReset) return;
+
+    // Set status/day to 1
+    firebase.database().ref('status/day').set(1)
+      .then(() => {
+        alert('Batch reset successful. Day set to 1.');
+        console.log('status/day reset to 1');
+      })
+      .catch((error) => {
+        alert('Error resetting batch');
+        console.error(error);
+      });
+
+    });
+
+      // Factory Reset Button
+      document.getElementById('factoryResetBtn').addEventListener('click', () => {
+      const confirmFactoryReset = confirm(
+        'Factory Reset will restore all values to defaults.\nDo you want to continue?'
+      );
+
+      if (!confirmFactoryReset) return;
+
+      console.log('Factory reset');
+
+      // Stop data logging
+      if (logInterval) {
+        clearInterval(logInterval);
+        logInterval = null;
+      }
+
+      // Reset in-memory variables
+      day = 1;
+      temperature = 36.5;
+      humidity = 50;
+      pirDetected = 0;
+      logData = [];
+
+      // Reset Firebase
+      db.ref("status").set({
+        day: 1,
+        temperature: 36.5,
+        humidity: 50,
+        pir: 0,
+        lastTurn: "-",
+        nextTurn: "-"
+      });
+
+      db.ref("controls").set({
+        mode: true,       // Automatic
+        bulb: false,
+        fan: false,
+        humidifier: false
+      });
+
+      db.ref("settings/environment").set({  //min max temp and humidity 
+        minTemperature: 37.3,
+        maxTemperature: 37.8,
+        minHumidity: 55,
+        maxHumidity: 60
+      });
+
+      db.ref("settings/turning").set({
+        turnInterval: 4,
+        lockdownDay: 18
+      });
+
+      // Reset UI elements
+      autoBtn.classList.add("active");
+      manualBtn.classList.remove("active");
+      enableDevices(false); // devices disabled in Automatic mode
+
+      document.getElementById("tempMinSlider").value = 37.3;
+      document.getElementById("tempMaxSlider").value = 37.8;
+      document.getElementById("humidityMinSlider").value = 55;
+      document.getElementById("humidityMaxSlider").value = 60;
+
+      document.getElementById("tempMinValue").innerText = 37.3;
+      document.getElementById("tempMaxValue").innerText = 37.8;
+      document.getElementById("humidityMinValue").innerText = 55;
+      document.getElementById("humidityMaxValue").innerText = 60;
+
+      document.getElementById("turnIntervalSlider").value = 4;
+      document.getElementById("lockdownDaySlider").value = 18;
+      document.getElementById("turnIntervalValue").innerText = 4;
+      document.getElementById("lockdownDayValue").innerText = 18;
+
+      // Reset device buttons
+      ["bulbOn","bulbOff","fanOn","fanOff","humidOn","humidOff"].forEach(id => {
+        const btn = document.getElementById(id);
+        btn.classList.remove("active");
+        btn.classList.remove("disabled");
+      });
+
+      localStorage.clear(); // optional: clear local storage
+
+      alert('System has been reset to default values.');
+      location.reload(); // optional UI refresh
+    });
+
+
+  // Exit Button
+  document.getElementById('exitBtn').addEventListener('click', () => {
+    const confirmExit = confirm('Exit the system?');
+
+    if (confirmExit) {
+      console.log('Exiting system');
+      window.history.back(); // or window.close() if allowed
+    }
+  });
+
+  let currentMinute = 1;
+  const tempChart = new Chart(document.getElementById('tempChart'), {
+  type: 'line',
+  data: {
+    datasets: [{
+      label: 'Temperature (°C)',
+      data: [],
+      borderColor: '#d18f00',
+      backgroundColor: 'rgba(209,143,0,0.2)',
+      tension: 0.3,
+      pointRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Temperature (°C)',
+        color: '#d18f00',
+        font: { size: 12, weight: 'bold' }
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        title: { display: true, text: 'Minutes' },
+        ticks: {
+          stepSize: 1,
+          precision: 0,
+          maxRotation: 0,
+          minRotation: 0,
+          callback: value => (value % 5 === 0 ? value : '') // show every 5 min
+        },
+        min: 1,
+        max: 60
+      },
+      y: {
+        min: 30,
+        max: 40,
+        beginAtZero: false,
+        ticks: { stepSize: 1 },
+        title: { display: true, text: '°C' }
+      }
+    }
+  }
+});
+
+const humidityChart = new Chart(document.getElementById('humidityChart'), {
+  type: 'line',
+  data: {
+    datasets: [{
+      label: 'Humidity (%)',
+      data: [],
+      borderColor: '#d18f00',
+      backgroundColor: 'rgba(209,143,0,0.2)',
+      tension: 0.3,
+      pointRadius: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Humidity (%)',
+        color: '#d18f00',
+        font: { size: 12, weight: 'bold' }
+      }
+    },
+    scales: {
+      x: {
+        type: 'linear',
+        title: { display: true, text: 'Minutes' },
+        ticks: {
+          stepSize: 1,
+          precision: 0,
+          maxRotation: 0,
+          minRotation: 0,
+          callback: value => (value % 5 === 0 ? value : '')
+        },
+        min: 1,
+        max: 60
+      },
+      y: {
+        min: 40,
+        max: 100,
+        beginAtZero: false,
+        ticks: { stepSize: 5 },
+        title: { display: true, text: '%' }
+      }
+    }
+  }
+});
+
+function updateCharts(tempValue, humidityValue) {
+  tempChart.data.datasets[0].data.push({ x: currentMinute, y: tempValue });
+  humidityChart.data.datasets[0].data.push({ x: currentMinute, y: humidityValue });
+
+  currentMinute++;
+  if (currentMinute > 60) currentMinute = 1;
+
+  tempChart.update();
+  humidityChart.update();
+}
+
+    db.ref("/status").on("value", snapshot => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      dayEl.innerText = (data.day !== undefined && data.day !== null) ? data.day : 1;
+      pirEl.innerText = data.pir ? "Yes" : "No";
+      tempEl.innerText = (data.temperature || 0) + "°C";
+      humidityEl.innerText = (data.humidity || 0) + "%";
+      lastTurnEl.innerText = data.lastTurn || "-";
+      nextTurnEl.innerText = data.nextTurn || "-";
+
+      // Store latest values
+      latestTemp = data.temperature || 0;
+      latestHumidity = data.humidity || 0;
+    });
+
+      setInterval(() => {
+        minuteCounter++;
+
+        tempChart.data.datasets[0].data.push({
+          x: minuteCounter,
+          y: latestTemp
+        });
+
+        humidityChart.data.datasets[0].data.push({
+          x: minuteCounter,
+          y: latestHumidity
+        });
+
+        if (tempChart.data.datasets[0].data.length > maxPoints) {
+          tempChart.data.datasets[0].data.shift();
+          humidityChart.data.datasets[0].data.shift();
+        }
+
+        tempChart.update();
+        humidityChart.update();
+      }, 60000); // 1 minute update
+
+  
+    /* ================= MODE CONTROL (settings) ================= */
+        const autoBtn = document.getElementById("autoBtn");
+        const manualBtn = document.getElementById("manualBtn");
+        const deviceBtns = document.querySelectorAll(".on, .off");
+
+        function enableDevices(enable) {
+          deviceBtns.forEach(b => b.classList.toggle("disabled", !enable));
+        }
+
+        db.ref("controls/mode").on("value", s => {
+          const auto = s.val();
+          autoBtn.classList.toggle("active", auto);
+          manualBtn.classList.toggle("active", !auto);
+          enableDevices(!auto);
+        });
+
+        autoBtn.onclick = () => db.ref("controls/mode").set(true);
+        manualBtn.onclick = () => db.ref("controls/mode").set(false);
+
+    /* ================= DEVICE CONTROLS ================= */
+        function setupDevice(onId, offId, path) {
+        const onBtn = document.getElementById(onId);
+        const offBtn = document.getElementById(offId);
+        const ref = db.ref("controls/" + path);
+
+        ref.on("value", s => {
+          const v = s.val();
+          onBtn.classList.toggle("active", v === true);
+          offBtn.classList.toggle("active", v === false);
+        });
+
+        onBtn.onclick = () => {
+          if (!onBtn.classList.contains("disabled")) ref.set(true);
+        };
+
+        offBtn.onclick = () => {
+          if (!offBtn.classList.contains("disabled")) ref.set(false);
+        };
+      }
+
+      setupDevice("bulbOn", "bulbOff", "bulb");
+      setupDevice("fanOn", "fanOff", "fan");
+      setupDevice("humidOn", "humidOff", "humidifier");
+
+    /* ================= DEFAULT INIT ================= */
+      db.ref("controls").update({
+        mode: true,
+        bulb: false,
+        fan: false,
+        humidifier: false
+      });
+
+    /* ================= envi settings ================= */
+    function updateEnvSettings() {
+      // Get slider values
+      let tempMin = parseFloat(document.getElementById("tempMinSlider").value);
+      let tempMax = parseFloat(document.getElementById("tempMaxSlider").value);
+      let humMin = parseInt(document.getElementById("humidityMinSlider").value);
+      let humMax = parseInt(document.getElementById("humidityMaxSlider").value);
+
+      // Ensure min is not greater than max
+      if (tempMin > tempMax) tempMin = tempMax;
+      if (humMin > humMax) humMin = humMax;
+
+      // Update slider values if corrected
+      document.getElementById("tempMinSlider").value = tempMin;
+      document.getElementById("tempMaxSlider").value = tempMax;
+      document.getElementById("humidityMinSlider").value = humMin;
+      document.getElementById("humidityMaxSlider").value = humMax;
+
+      // Update displayed range
+      document.getElementById("tempMinValue").innerText = tempMin;
+      document.getElementById("tempMaxValue").innerText = tempMax;
+      document.getElementById("humidityMinValue").innerText = humMin;
+      document.getElementById("humidityMaxValue").innerText = humMax;
+
+      // -----------------------------
+      // Update Firebase
+      db.ref("settings/environment").update({
+        minTemperature: tempMin,
+        maxTemperature: tempMax,
+        minHumidity: humMin,
+        maxHumidity: humMax
+      });
+    }
+
+    // logging interval
+      function updateTurningSettings() {
+      const turnInterval = parseInt(document.getElementById("turnIntervalSlider").value);
+      const lockdownDay = parseInt(document.getElementById("lockdownDaySlider").value);
+
+      // Update display
+      document.getElementById("turnIntervalValue").innerText = turnInterval;
+      document.getElementById("lockdownDayValue").innerText = lockdownDay;
+
+      // Update Firebase
+      db.ref("settings/turning").update({
+        turnInterval: turnInterval,
+        lockdownDay: lockdownDay
+      });
+    }
+    </script>
+  </div>
+  </body>
+</html>

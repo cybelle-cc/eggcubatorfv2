@@ -1,0 +1,426 @@
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+  
+  /*navigation*/
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background-color: #FBC02D;
+      cursor: pointer;
+    }
+
+    .nav-buttons button.active {
+      background-color: #F9A825;
+      color: white;
+    }
+  /* GUIDELINES PAGE */
+  #guidelines {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  #guidelines h2 {
+    text-align: center;
+    color: #d18f00;
+    margin-bottom: 25px;
+  }
+
+  .guide-card {
+    background: #fffbea;
+    border-left: 6px solid #f0c000;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+
+  .guide-card h3 {
+    margin-top: 0;
+    color: #b87900;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+
+  .guide-card p {
+    color: #5a4a00;
+    text-align: justify;
+    line-height: 1.6;
+    font-size: 0.95em;
+  }
+
+  .guide-card ul,
+  .guide-card ol {
+    margin: 10px 0 0 20px;
+    color: #5a4a00;
+    font-size: 0.95em;
+  }
+
+  .guide-card li {
+    margin-bottom: 8px;
+  }
+
+  .phase {
+    background: #fff3c4;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+  }
+
+  .phase-title {
+    font-weight: bold;
+    color: #8a5c00;
+    margin-bottom: 6px;
+  }
+
+  .guide-card {
+      background-color: #fffdf0; 
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      color: #333;
+    }
+    
+    .guide-card h3 {
+      margin-bottom: 15px;
+      color: #d18f00;
+      text-align: left; 
+    }
+    
+    .guide-card p {
+      text-align: justify;
+      line-height: 1.6;
+    }
+  
+  .emails {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start; 
+  }
+  
+  .email-btn {
+    text-decoration: none;
+    background-color: #fff3c4; 
+    color: #333;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .email-btn:hover {
+    background-color: #fff3c4;
+    color: white;
+  }
+  
+  .dashboard-container {
+    max-width: 1000px;
+    margin: auto;
+  }
+
+
+  .info-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    flex: 1 1 220px;
+    background: #FFFDE7;
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .card h3 {
+    margin: 0 0 10px;
+    color: #d18f00;
+  }
+
+  .card p {
+    font-size: 1.2em;
+    margin: 0;
+  }
+
+  .chart-container {
+    background: #FFFDE7;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    height: 350px;
+  }
+
+  .turns-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  .turn-card {
+    flex: 1;
+    background-color: #FFFDE7;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .turn-card h4 {
+    margin: 0 0 10px;
+    color: #d18f00;
+  }
+
+  .turn-card p { /*font size only */
+    font-size: 1.1em;
+    margin: 0;
+  }
+  
+  canvas {
+    width: 100% !important;
+    max-height: 320px;
+  }
+
+  @media(max-width: 700px){
+    .info-cards, .turns-container {
+      flex-direction: column;
+    }
+    .card, .turn-card {
+      flex: 1 1 100%;
+    }
+  }
+
+    /* ---------- SETTINGS ---------- */
+    .display-container, .control-panel {
+      background: #fffbea;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .display-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      color: #d18f00;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 10px;
+      font-weight: bold;
+      color: #d18f00;
+    }
+
+    .button-group, .device-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      margin: 0 5px;
+      padding: 10px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      border: 2px solid #d18f00;
+      background: transparent;
+      color: #d18f00;
+      text-align: center;
+    }
+
+    .toggle-btn.on.active {
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    .toggle-btn.off.active {
+      background-color: #c62828;
+      color: white;
+    }
+
+    .toggle-btn.mode.active {
+      background-color: #d18f00;
+      color: #fffbea;
+    }
+
+    .toggle-btn.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .device-label {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #d18f00;
+    }
+
+  .env-value {
+    text-align: center;
+    font-weight: bold;
+    color: #5D4037;
+    margin-bottom: 10px;
+  }
+
+  .env-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #d18f00;
+    font-size: 1em;
+    text-align: center;
+    background: transparent;
+    color: #5D4037;
+  }
+
+  .control-panel label {
+    margin-bottom: 8px;
+  }
+
+  .device-group .toggle-btn.mode i {
+    pointer-events: none; /* only the button div is clickable */
+  }
+
+
+/*slider for turning settings*/
+    .env-slider {
+      width: 100%;                /* full width of container */
+      margin: 5px 0 10px 0;       /* spacing */
+      accent-color: #d18f00;      /* track & thumb color for modern browsers */
+      height: 10px;                /* slider track height */
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Optional: style thumb for better visibility */
+    .env-slider::-webkit-slider-thumb {
+      height: 20px;
+      width: 20px;
+      background: #d18f00;      /* golden thumb */
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #d18f00;
+      margin-top: -5px;          /* align thumb with track */
+    }
+
+    .env-slider::-moz-range-thumb {
+      height: 20px;
+      width: 20px;
+      background: #d18f00;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #d18f00;
+    }
+/* ===== Preferences ===== */
+.preference-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Labels (for Data Logging toggle) */
+.preference-label {
+  font-weight: bold;
+  color: #5D4037;
+  font-size: 1em;
+  width: 150px; 
+  text-align: left;
+  margin-left: 15px;
+}
+
+.data-label {
+  margin-left: 15px;
+}
+
+/* Toggle switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 28px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 28px;
+  top: 0; left: 0; right: 0; bottom: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #d18f00;
+}
+
+input:checked + .slider:before {
+  transform: translateX(32px);
+}
+
+.clickable-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  width: 100%;
+  padding: 12px 15px;
+  margin: 5px 0;
+  background-color: #fffbea;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  color: #5D4037;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.3s;
+}
+
+.clickable-btn:hover {
+  background-color: #fdf6d7;
+}
+
